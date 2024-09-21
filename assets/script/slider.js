@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let sliderInitialized = false;
 
     const initializeSlider = () => {
-        // Проверяем, что ширина экрана меньше 768 пикселей
         if (window.innerWidth < 768) {
             if (!sliderInitialized) {
                 sliderInitialized = true;
@@ -19,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 sliderContainer.style.display = 'flex';
                 sliderContainer.style.transition = 'transform 0.5s ease-in-out';
 
-                // Функция обновления ширины слайдов при изменении размера окна
                 const updateSlideWidths = () => {
                     const slideWidth = document.querySelector('.slider').offsetWidth;
                     slides.forEach(slide => {
@@ -28,13 +26,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateSliderPosition();
                 };
 
-                // Обновляем позицию слайдера
                 const updateSliderPosition = () => {
                     const slideWidth = document.querySelector('.slider').offsetWidth;
                     sliderContainer.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
                 };
 
-                // Создаем индикаторы (кружочки)
                 slides.forEach((_, index) => {
                     const dot = document.createElement('div');
                     dot.classList.add('dot');
@@ -84,7 +80,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateButtons();
             }
         } else {
-            // Если ширина экрана >= 768 и слайдер был инициализирован, удаляем его
             if (sliderInitialized) {
                 sliderInitialized = false;
 
@@ -94,7 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 const nextButton = document.querySelector('.btn__next');
                 const indicatorContainer = document.querySelector('.indicator');
 
-                // Сбрасываем стили
                 sliderContainer.style.display = '';
                 sliderContainer.style.transition = '';
                 sliderContainer.style.transform = '';
@@ -103,23 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     slide.style.minWidth = '';
                 });
 
-                // Удаляем обработчики событий с кнопок
                 prevButton.replaceWith(prevButton.cloneNode(true));
                 nextButton.replaceWith(nextButton.cloneNode(true));
 
-                // Очищаем индикаторы
                 indicatorContainer.innerHTML = '';
 
-                // Удаляем обработчик resize
                 window.removeEventListener('resize', updateSlideWidths);
             }
         }
     };
 
-    // Инициализируем слайдер при загрузке страницы
     initializeSlider();
 
-    // Обновляем слайдер при изменении размера окна
     window.addEventListener('resize', () => {
         initializeSlider();
     });
